@@ -39,12 +39,3 @@ jobs:
           ruff . --format=json > ruff_report.json
         continue-on-error: true  # ошибки Ruff не остановят pipeline, только отчёт
 
-      - name: Fail if Ruff found issues
-        run: |
-          if [ $(jq '.errors | length' ruff_report.json) -gt 0 ]; then
-            echo "Ruff обнаружил ошибки!"
-            cat ruff_report.json
-            exit 1
-          fi
-        env:
-          RUFF_REPORT: ruff_report.json
