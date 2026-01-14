@@ -1,41 +1,15 @@
-name: CI Pipeline
-
+name: lr_ci_cd
 on:
-  push:
-    branches:
-      - main
-      - setup
   pull_request:
-    branches:
-      - main
-      - setup
-
-
+    branches: [main, master]
 jobs:
-  tests_and_lint:
+  check:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install pytest ruff
-
-      - name: Run unit tests
-        run: |
-          pytest
-        continue-on-error: false  # если тест не прошел, ссылка останавливается
-
-      - name: Run Ruff linter
-        run: |
-          ruff . --format=json > ruff_report.json
-        continue-on-error: true  # ошибки Ruff не остановят pipeline, только отчёт
-
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - run: python -m pytest test_class_car.py
+      - run: ruff check .
