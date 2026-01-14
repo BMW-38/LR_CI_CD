@@ -1,7 +1,7 @@
 import unittest
 from .car import Car
 
-wcaclass TestCase(unittest.TestCase):
+class TestCase(unittest.TestCase):
 	def setUp(self):
 		self.car = Car(model="BMW X5", fuel_capacity=80)
 
