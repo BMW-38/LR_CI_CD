@@ -1,4 +1,4 @@
-dfhgggfywcueixwok;adfuiopxskl;djhimport unittest
+import unittest
 from .car import Car
 
 class TestCase(unittest.TestCase):
